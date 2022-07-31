@@ -46,7 +46,7 @@ export default class RPC {
   sendTransaction = async (amountSolana, toPubKey) => {
     try {
       const solanaWallet = new SolanaWallet(this.provider);
-      const connectionConfig = await solanaWallet.request<CustomChainConfig>({ method: "solana_provider_config", params: [] });
+      const connectionConfig = await solanaWallet.request({ method: "solana_provider_config", params: [] });
       const conn = new Connection(connectionConfig.rpcTarget);
 
       const pubKey = await solanaWallet.requestAccounts();

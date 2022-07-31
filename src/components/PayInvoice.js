@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { Spin } from "antd";
+import { Result, Spin } from "antd";
 import { useParams } from "react-router-dom";
 import { fetchMetadata, retrieveFiles } from "../util/stor";
 import { mintSolanaNft } from "../util/tatumNft";
@@ -43,7 +43,7 @@ function PayInvoice({ account, getPrivateKey, sendTransaction }) {
   const { description, title, payerAddress } = data;
 
   const completePayment = async (amountSolana) => {
-    let nftResults = {};
+    let res = {}
 
     setLoading(true);
 
@@ -53,20 +53,19 @@ function PayInvoice({ account, getPrivateKey, sendTransaction }) {
       console.log('tx', transaction)
       res['transaction'] = transaction
 
-      const privateKey = await getPrivateKey()
+      const privateKey = ''// await getPrivateKey()
       //   https://docs.nftport.xyz/docs/nftport/b3A6MjE2NjM5MDM-easy-minting-w-url
-      let res = await mintSolanaNft(
+      let nftResult = await mintSolanaNft(
         title,
         account,
         privateKey,
         payerAddress,
         `ipfs://${invoiceId}`
       );
-      nftResults["signatureNft"] = res.data;
-      const url = nftResults["transaction_external_url"];
-      nftResults = { nftResults, ...res };
-      
-      setResult(nftResults);
+      res["invoiceNft"] = nftResult;
+      const url = nftResult["transaction_external_url"];;
+      res['nftUrl'] = url;
+      setResult(res);
     } catch (e) {
       console.error("error signing", e);
       alert("Error completing invoice: " + JSON.stringify(e));
@@ -108,14 +107,13 @@ function PayInvoice({ account, getPrivateKey, sendTransaction }) {
         {/* <img src={logo} className="header-logo" /> */}
         <br />
         <br />
-        <h1>Transaction complete!</h1>
-        <p>Access your completed solana contract and signature packet.</p>
-
-        {/* <a href={getExplorerUrl(contractAddress)} target="_blank">
-          View Contract
-        </a> */}
+        <Result
+        status="success"
+          title="Trasaction complete!"
+        subTitle="Access your completed solana contract and signature packet.">
         <p>Full response below:</p>
         <pre>{JSON.stringify(result, null, "\t")}</pre>
+</Result>
       </div>
     );
   }
