@@ -109,8 +109,8 @@ function PayInvoice({ account, getPrivateKey, sendTransaction }) {
         <br />
         <Result
         status="success"
-          title="Trasaction complete!"
-        subTitle="Access your completed solana contract and signature packet.">
+          title="Transaction complete!"
+        subTitle="Access your completed Solana invoice NFT and payment transaction url.">
         <p>Full response below:</p>
         <pre>{JSON.stringify(result, null, "\t")}</pre>
 </Result>
