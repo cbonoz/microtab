@@ -6,19 +6,22 @@ Microtab
 
 ###
 
-Microtab is a web3 implementation of invoice collection built on Solana smart contracts and IPFS.
+Microtab is a web3 implementation of invoice collection built on Solana and IPFS.
 
-Free invoice request page hosting on IPFS
-Code-free payment requests. No API integrations required.
-History tracked on blockchain rather than a centralized source.
-Microtab fees collected only when you get paid. Not when you request.
-NFT minted on every invoice fulfillment.
+* Free invoice request page hosting on IPFS
+* Code-free payment requests. No API integrations required.
+* History tracked on blockchain rather than a centralized source.
+* Microtab fees collected only when you get paid. Not when you request.
+* NFT minted on every invoice fulfillment.
+* Uses Solana which enables fast transaction times, low fees, and easy wallet connections.
 
 Going after the payments and web3 tracks at the Solana Summercamp Hackathon 2022.
 
 <!-- Try it out <a href="microtab.surge.sh" target="_blank">here</a>
 
 Demo video:  -->
+
+*Zero fees on testnet demo.
 
 ### Benefits
 
@@ -48,11 +51,8 @@ To run/demo the project locally, Microtab requires the following environment var
 After declaring the above environment variables, use the below command to start the project:
 `yarn; yarn start`
 
-Recompiling Microtab contract:
-`cd contracts; npx hardhat compile`
-
-Example invoice requests contracts:
-http://localhost:3000/sign/QmUAS9XJyf9gPgadoVeExESiVnVJmVJW6qtcU4dzJzwG96
+Example invoice request:
+http://localhost:3000/invoice/bafybeigr4hzkldrbyrxzblzzsqixksqfd6tzew2xbjebjgclpa6tdofywq
 
 ### Screenshots
 
@@ -96,16 +96,5 @@ http://localhost:3000/sign/QmUAS9XJyf9gPgadoVeExESiVnVJmVJW6qtcU4dzJzwG96
 
 <img src="./img/tx.png" width=800 />
 
-### Contract source
-
-<img src="./img/sol.png" width=800 />
-
-### Viewing signing history via Covalent.
-
-<img src="./img/history.png" width=800 />
-
--->
-
 ### Useful links
 * https://web3auth.io/docs/integration-builder?lang=react&chain=sol&customAuthentication=yes&whitelabel=no&dynamicConstructorParams=no&usingEmailPasswordless=no&rnWorkflowMode=expo&evmFramework=web3&customLogin=yes#step-3
-* 
