@@ -16,9 +16,9 @@ Microtab is a web3 implementation of invoice collection built on Solana and IPFS
 
 <B>Going after the payments and web3 tracks at the Solana Summercamp Hackathon 2022.</b>
 
-<!-- Try it out <a href="microtab.surge.sh" target="_blank">here</a>
+Try it out <a href="https://microtab.surge.sh" target="_blank">here</a>
 
-Demo video:  -->
+Demo video: 
 
 *Zero fees on testnet demo.
 
@@ -33,20 +33,20 @@ Demo video:  -->
 
 Web2 invoice tech examples: https://www.bill.com/lp/bill-pay https://stripe.com/billing https://quickbooks.intuit.com/accounting/invoicing/
 
-### Technologies used
+### How it's built
 
 - IPFS: Generation of the invoice record / proof. NFT storage also used for final NFT mint with receipt image.
 - Solana: In-app payment of the request and marked completed upon payment of the each request based on receival of desired payers payment.
 
 <!-- <b>This project is a hackathon prototype and would require additional work / deployment to be production ready. -->
 
----
+### Running the project
 
 To run/demo the project locally, Microtab requires the following environment variables.
 
 <pre>
-    REACT_APP_STORAGE_KEY={YOUR_WEB3_STORAGE_KEY} # web3.storage key for file hosting.
-    REACT_APP_NFT_KEY={YOUR_NFT_STORAGE_KEY} # (Optional) nft.storage key for receipt nft minting.
+    REACT_APP_STORAGE_KEY={YOUR_WEB3_STORAGE_KEY} # web3.storage key for file hosting (web3.storage)
+    REACT_APP_NFT_KEY={YOUR_NFT_STORAGE_KEY} # (Optional) nft.storage key for receipt nft minting (nft.storage)
 </pre>
 
 ---
@@ -56,6 +56,8 @@ After declaring the above environment variables, use the below command to start 
 
 Example invoice request:
 http://localhost:3000/invoice/bafybeigr4hzkldrbyrxzblzzsqixksqfd6tzew2xbjebjgclpa6tdofywq
+
+By default the project will run against the Solana Testnet and requires a Solana-compatible wallet for signing transactions.
 
 ### Screenshots
 
