@@ -2,8 +2,8 @@
     <img src='./img/logo_3_2.png' width=400/>
 </p>
 
-Microtab
 
+Microtab
 ###
 
 Microtab is a web3 implementation of invoice collection built on Solana and IPFS.
@@ -28,7 +28,11 @@ Demo video:  -->
 - Microtab enables anyone to create and collect invoice against documents without a vendor agreement.
 - Each packet of documents for an invoice is made accessible at an IPFS url.
 - When the invoice is completed, an NFT is generated that links both the invoice payment to the original request being fulfilled.
-- Hosted documents and the request are immutable.
+- Hosted documents and the request are immutable once deployed. To request again or make a change, simply create a new invoice.
+- Fully auditable history tied to Solana blockchain and blockchain explorer rather than centralized systems.
+
+
+Web2 invoice tech examples: https://www.bill.com/lp/bill-pay https://stripe.com/billing https://quickbooks.intuit.com/accounting/invoicing/
 
 ### Technologies used
 
