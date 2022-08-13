@@ -109,13 +109,13 @@ function App() {
     console.log(balance);
   };
 
-  const sendTransaction = async () => {
+  const sendTransaction = async (amount, destination) => {
     if (!provider) {
       console.log("provider not initialized yet");
       return;
     }
     const rpc = new RPC(provider);
-    const receipt = await rpc.sendTransaction();
+    const receipt = await rpc.sendTransaction(amount, destination);
     console.log('sendTransaction', receipt);
   };
 
@@ -177,6 +177,9 @@ function App() {
                 logout()
               }}>logout</a>)</span>}
           </Menu>
+          <span>
+            Active network: <b>{ACTIVE_CHAIN.name}</b>
+          </span>
         </Header>
         <Content style={{ padding: "0 50px" }}>
           <div className="container">

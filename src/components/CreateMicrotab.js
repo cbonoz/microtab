@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Input, Row, Col, Radio, Steps } from "antd";
+import { Button, Input, Row, Col, Result, Steps, Tooltip } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import { invoiceUrl, ipfsUrl, getExplorerUrl } from "../util";
 import { EXAMPLE_FORM } from "../util/constants";
@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 const { Step } = Steps;
 
 function CreateMicrotab({account}) {
-  const [data, setData] = useState({ ...EXAMPLE_FORM });
+  const [data, setData] = useState({ ...EXAMPLE_FORM })
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState();
@@ -19,6 +19,8 @@ function CreateMicrotab({account}) {
   useEffect(() => {
     if (!account) {
       navigate('/')
+    } else {
+      updateData("remittanceAddress", account)
     }
   }, [account])
 
@@ -31,7 +33,8 @@ function CreateMicrotab({account}) {
       data.title &&
       data.description &&
       data.amount && data.amount > 0 &&
-      data.payerAddress
+      data.payerAddress &&
+      data.remittanceAddress
     );
   };
   const isValidData = isValid(data);
@@ -99,6 +102,8 @@ function CreateMicrotab({account}) {
     return 0;
   };
 
+  const openTab = (url) => window.open(url, '_blank')
+
   return (
     <div>
       <Row>
@@ -145,20 +150,27 @@ function CreateMicrotab({account}) {
               setFiles={(files) => updateData("files", files)}
             />
 
-            <h3 className="vertical-margin">Enter payer address:</h3>
+            <h3 className="vertical-margin">Payment information:</h3>
             <p>
               In order to fulfill or complete the invoice, the viewer or
               potential payer of the invoice must prove ownership of a
-              particular address
+              particular address. Payment will automatically be sent to your current address upon fulfillment.
             </p>
+
             <Input
               placeholder="Wallet address of payer"
               value={data.payerAddress}
               prefix="Payer Address:"
               onChange={(e) => updateData("payer", e.target.value)}
             />
-            <br />
-
+            <br/>
+            <Input
+              placeholder="Remittance address"
+              value={data.remittanceAddress}
+              disabled
+              prefix="Paid to:"
+              onChange={(e) => updateData("payer", e.target.value)}
+            />
             <Button
               type="primary"
               className="standard-button"
@@ -174,29 +186,20 @@ function CreateMicrotab({account}) {
             <br />
             <br />
             {error && <div className="error-text">{error}</div>}
-            {result && (
-              <div>
-                <div className="success-text">Created invoice request!</div>
-                <a href={ipfsUrl(result.cid)} target="_blank">
-                  View metadata
-                </a>
-                <br />
-                <a href={result.contractUrl} target="_blank">
-                  View created contract
-                </a>
-                <br />
-                <br />
-                <p>
-                  Share this url with the potential signer:
-                  <br />
-                  <a href={result.invoiceUrl} target="_blank">
-                    Open invoice url
-                  </a>
-                </p>
-
-                {/* <div>{JSON.stringify(result, null, "\t")}</div> */}
-              </div>
-            )}
+            {result && 
+          <div>
+              <Result
+              status="success"
+              title="Created invoice request"
+              subTitle={`Invoice number: ${result.cid} has been created. Share the invoice url with the potential buyer`}
+              extra={[
+                <Button type="primary" key="console" onClick={() => openTab(result.invoiceUrl)}>
+                  Open Invoice url
+                </Button>,
+                <Button key="metadata" onClick={() => openTab(ipfsUrl(result.cid))}>View metadata</Button>,
+              ]}
+            ></Result>
+            </div>}
           </div>
         </Col>
         <Col span={1}></Col>

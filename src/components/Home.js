@@ -16,7 +16,7 @@ function Home({login, account}) {
   const navigate = useNavigate();
 
   const goToCreate = () => {
-    account ? login() : navigate("/create");
+    account ? navigate("/create") : login()
   };
 
   return (

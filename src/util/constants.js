@@ -7,13 +7,13 @@ export const APP_DESC = "Micro-invoicing on Solana"
 export const CHAIN_OPTIONS = {
   1: {
     name: "Solana",
-    url: "https://mumbai.solanascan.com/",
+    url: "https://explorer.solana.com/",
     rpc: "https://rpc.ankr.com/solana",
     id: '0x1'
   },
   2: {
-    name: "Solana testnet",
-    url: "https://solanascan.com/",
+    name: "Solana Testnet",
+    url: "https://explorer.solana.com/",
     rpc: "https://rpc.ankr.com/solana",
     id: '0x2',
   },
@@ -26,7 +26,8 @@ export const ACTIVE_CHAIN = CHAIN_OPTIONS["2"];
 export const EXAMPLE_FORM = {
   title: "SaaS agreement for 2022",
   description: "Please agree to the included invoice document and amount.",
-  payerAddress: "13numzseWwE4wb7nibfezBH9AWghwnULTPikXNo8oFnK",
+  payerAddress: "5dvPTySxLNAjLnrpaYQyMq7ttRrVidaMAz96PYF9tnuK",
+  remittanceAddress: "",
   amount: 0.1,
   currency: 'SOL',
   files: [],

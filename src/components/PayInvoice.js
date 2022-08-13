@@ -42,14 +42,14 @@ function PayInvoice({ account, getPrivateKey, sendTransaction }) {
 
   const { description, title, payerAddress } = data;
 
-  const completePayment = async (amountSolana) => {
+  const completePayment = async (amountSolana, destination) => {
     let res = {}
 
     setLoading(true);
 
     try {
 
-      const transaction = await sendTransaction(amountSolana, payerAddress)
+      const transaction = await sendTransaction(amountSolana, destination)
       console.log('tx', transaction)
       res['transaction'] = transaction
 
@@ -122,7 +122,7 @@ function PayInvoice({ account, getPrivateKey, sendTransaction }) {
     <div className="container boxed white">
       <h2 className="centered">Pay Invoice</h2>
       <br />
-      <Invoice {...data} account={account} invoiceId={invoiceId} completePayment={completePayment} />
+      <Invoice invoiceId={invoiceId} {...data} account={account} invoiceId={invoiceId} completePayment={completePayment} />
     </div>
   );
 }

@@ -2,7 +2,7 @@ import { CheckCircleTwoTone } from "@ant-design/icons";
 import { Button, Tooltip, Modal, Input, Result, Empty } from "antd";
 import React, { useState, useMemo, useEffect } from "react";
 import logo from "../../assets/logo.png";
-import { abbreviate, formatMoney, getDateStringFromTimestamp, isEmpty } from "../../util";
+import { abbreviate, formatMoney, getDateStringFromTimestamp, getExplorerUrl, isEmpty } from "../../util";
 import { getRates } from "../../util/coins";
 import { ACTIVE_CHAIN, APP_NAME } from "../../util/constants";
 
@@ -18,6 +18,7 @@ function Invoice({
   title,
   account,
   payerAddress,
+  remittanceAddress,
   logoUrl,
   ref,
   createdAt,
@@ -26,7 +27,7 @@ function Invoice({
   completePayment,
   files,
   amount,
-  invoiceNumber=DEMO_NUMBER,
+  invoiceId
 }) {
   const [rates, setRates] = useState()
 
@@ -73,9 +74,9 @@ function Invoice({
                     Purchase #:&nbsp;
                     <Tooltip
                       placement="top"
-                      title={<span>{invoiceNumber}</span>}
+                      title={<span>{invoiceId}</span>}
                     >
-                      {invoiceNumber.slice(0, 16)}
+                      {invoiceId.slice(0, 16)}
                     </Tooltip>
                     <br />
                     Created:&nbsp;
@@ -99,8 +100,20 @@ function Invoice({
                   </td>
 
                   <td>
+                  <Tooltip
+                      placement="top"
+                      title={<span>{account}</span>}
+                    >
                     Your account: {abbreviate(account)}<br/>
-                    Payable to: {abbreviate(payerAddress)}
+                    </Tooltip>
+                    <Tooltip
+                      placement="top"
+                      title={<span>{remittanceAddress}</span>}
+                    >
+                      <a href={getExplorerUrl(remittanceAddress)} target="_blank">
+                    Payable to: {abbreviate(remittanceAddress)}
+                    </a>
+                    </Tooltip>
                   </td>
                 </tr>
               </table>
@@ -156,7 +169,7 @@ function Invoice({
                   type="primary"
                   size="large"
                   className="standard-button"
-                  onClick={() => completePayment(solanaString)}
+                  onClick={() => completePayment(solanaString, remittanceAddress)}
                 >
                   Pay with wallet
                 </Button>
