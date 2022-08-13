@@ -2,9 +2,8 @@
     <img src='./img/logo_3_2.png' width=400/>
 </p>
 
-
 Microtab
-###
+---
 
 Microtab is a web3 implementation of invoice collection built on Solana and IPFS.
 
