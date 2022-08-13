@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { Result, Spin } from "antd";
+import { Button, Result, Spin } from "antd";
 import { useParams } from "react-router-dom";
-import { fetchMetadata, retrieveFiles } from "../util/stor";
-import { mintSolanaNft } from "../util/tatumNft";
+import { fetchMetadata, retrieveFiles, storeNFT } from "../util/stor";
 import Invoice from "./Invoice/Invoice";
+import { sendTransaction } from "../util/solana";
+import { getExplorerUrl, ipfsUrl } from "../util";
+import { NFT_STORAGE_KEY } from "../util/constants";
 
 
-function PayInvoice({ account, getPrivateKey, sendTransaction }) {
+function PayInvoice({ account, provider  }) {
   const { invoiceId } = useParams(); // cid
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
@@ -44,31 +46,28 @@ function PayInvoice({ account, getPrivateKey, sendTransaction }) {
 
   const completePayment = async (amountSolana, destination) => {
     let res = {}
+    let nftResult = {}
 
     setLoading(true);
 
     try {
 
-      const transaction = await sendTransaction(amountSolana, destination)
+      const transaction = await sendTransaction(provider, amountSolana, destination)
       console.log('tx', transaction)
       res['transaction'] = transaction
 
-      const privateKey = ''// await getPrivateKey()
       //   https://docs.nftport.xyz/docs/nftport/b3A6MjE2NjM5MDM-easy-minting-w-url
-      let nftResult = await mintSolanaNft(
-        title,
-        account,
-        privateKey,
-        payerAddress,
-        `ipfs://${invoiceId}`
-      );
-      res["invoiceNft"] = nftResult;
-      const url = nftResult["transaction_external_url"];;
-      res['nftUrl'] = url;
+      if (NFT_STORAGE_KEY) {
+        nftResult = await storeNFT(
+          `Receipt for Invoice - ${title} (${invoiceId})`,
+          `Paid by ${account}`,
+        );
+        res["invoiceNft"] = nftResult;
+      }
       setResult(res);
     } catch (e) {
       console.error("error signing", e);
-      alert("Error completing invoice: " + JSON.stringify(e));
+      alert("Error completing invoice: " + e.toString());
     } finally {
       setLoading(false);
     }
@@ -110,7 +109,16 @@ function PayInvoice({ account, getPrivateKey, sendTransaction }) {
         <Result
         status="success"
           title="Transaction complete!"
-        subTitle="Access your completed Solana invoice NFT and payment transaction url.">
+        subTitle="Access your completed Solana invoice NFT and payment transaction url."
+        extra={[
+          <Button type="primary" key="transaction" onClick={() => window.open(getExplorerUrl(result.transaction, true), "_blank")}>
+            View transaction
+          </Button>,
+            <Button type="secondary" key="transaction" onClick={() => window.open(ipfsUrl(result.invoiceNft.ipnft, 'metadata.json'), "_blank")}>
+            View NFT receipt
+          </Button>,
+        ]}
+        >
         <p>Full response below:</p>
         <pre>{JSON.stringify(result, null, "\t")}</pre>
 </Result>
