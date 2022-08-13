@@ -10,11 +10,11 @@ Microtab is a web3 implementation of invoice collection built on Solana and IPFS
 * Free invoice request page hosting on IPFS
 * Code-free payment requests. No API integrations required.
 * History tracked on blockchain rather than a centralized source.
-* Microtab fees collected only when you get paid. Not when you request.
+* Microtab fees collected only when you get paid. Not when you request*.
 * NFT minted on every invoice fulfillment.
 * Uses Solana which enables fast transaction times, low fees, and easy wallet connections.
 
-Going after the payments and web3 tracks at the Solana Summercamp Hackathon 2022.
+<B>Going after the payments and web3 tracks at the Solana Summercamp Hackathon 2022.</b>
 
 <!-- Try it out <a href="microtab.surge.sh" target="_blank">here</a>
 
