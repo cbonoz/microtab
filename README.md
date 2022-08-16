@@ -66,6 +66,7 @@ By default the project will run against the Solana Testnet and requires a Solana
 
 <img src="./img/login1.png" width=800 />
 <br/>
+<p>Connecting wallet</p>
 <img src="./img/login2.png" width=800 />
 
 #### Creating a invoice request
@@ -94,7 +95,7 @@ By default the project will run against the Solana Testnet and requires a Solana
 
 <img src="./img/done.png" width=800 />
 
-### Completed invoice NFT
+### Completed invoice NFT (receipt)
 
 <img src="./img/ipfs.png" width=800 />
 
